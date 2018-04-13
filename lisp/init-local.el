@@ -22,15 +22,36 @@
   (interactive)
   ( start-process-shell-command
     "rsync-to-dev"
-    nil
+    "*Messages*"
     "rsyncdev"))
+
+(defun rsync-file (local-file)
+  "rsync to devbox"
+  (let ((remote-file (replace-regexp-in-string "/Users/chengyuhang/work"
+                                               "rsync://106.75.101.26:1873/drwrong/work"
+                                               local-file
+                                               )))
+    (start-process-shell-command
+     "rsync-specific-file"
+     "*Messages*"
+     (concat "rsync -vz "
+             (shell-quote-argument local-file)
+             " "
+             (shell-quote-argument remote-file)
+             )
+     )
+
+    )
+  )
 
 (defun sync-tantan-file ()
   "Sync domob file auto."
   (when (string-match
-         "~/work/gopath/src/backend/.*"
+         "/Users/chengyuhang/work/.*"
          buffer-file-name)
-    (rsyncdev))
+    (rsync-file buffer-file-name)
+    (rsyncdev)
+    )
   )
 
 (define-minor-mode auto-rsync-mode
@@ -41,11 +62,32 @@
         (t
          (remove-hook 'after-save-hook 'sync-tantan-file))))
 
-(auto-rsync-mode t)
 
 (require 'ox-odt)
 
+(require 'sql-indent)
 
 
+
+(add-hook 'sqlind-minor-mode-hook
+          (lambda ()
+            (setq sqlind-basic-offset 4)
+            ))
+
+(add-to-list 'auto-mode-alist '(".*\\.js" . rjsx-mode))
+
+
+(add-hook 'rjsx-mode-hook
+          (lambda ()
+            (setq emmet-expand-jsx-className? t)
+            (emmet-mode t)
+            (eslinted-fix-mode t)
+            ))
+(add-hook 'js2-mode-hook 'eslintd-fix-mode)
+
+
+
+(setq debug-on-error nil)
+(message "init local success")
 (provide 'init-local)
 ;;; init-local.el ends here

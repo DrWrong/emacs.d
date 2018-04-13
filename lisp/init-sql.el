@@ -10,8 +10,8 @@
   "Work around https://debbugs.gnu.org/cgi/bugreport.cgi?bug=22596.
 Fix for the above hasn't been released as of Emacs 25.2."
   (when (eq sql-product 'postgres)
-    (setq-local sql-prompt-regexp "^[[:alnum:]_]*=[#>] ")
-    (setq-local sql-prompt-cont-regexp "^[[:alnum:]_]*[-(][#>] ")))
+    (setq-local sql-prompt-regexp "^[[:alnum:]_-]*=[#>] ")
+    (setq-local sql-prompt-cont-regexp "^[[:alnum:]_-]*[-(][#>] ")))
 
 (add-hook 'sql-interactive-mode-hook 'sanityinc/fix-postgres-prompt-regexp)
 
