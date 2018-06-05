@@ -1,92 +1,59 @@
 ;;; local --- local mode
 ;;; Code:
 ;;; Commentary:
-
-;; osx clipborad mode
-(osx-clipboard-mode t)
+;; Set load path
+(push "~/.emacs.d/site-lisp" load-path)
 
 ;; go mode config
-(require 'company-go)
-(require 'golint)
+(require-package 'go-mode)
+(require-package 'company-go)
+(require-package 'golint)
+(require-package 'go-playground)
 (setq gofmt-command "goimports")
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
             )
           )
+(message "Init go mode ok")
 
-
-;; perform auto sync
-(defun rsyncdev ()
-  "Auto rsyncdev."
-  (interactive)
-  ( start-process-shell-command
-    "rsync-to-dev"
-    "*Messages*"
-    "rsyncdev"))
-
-(defun rsync-file (local-file)
-  "rsync to devbox"
-  (let ((remote-file (replace-regexp-in-string "/Users/chengyuhang/work"
-                                               "rsync://106.75.101.26:1873/drwrong/work"
-                                               local-file
-                                               )))
-    (start-process-shell-command
-     "rsync-specific-file"
-     "*Messages*"
-     (concat "rsync -vz "
-             (shell-quote-argument local-file)
-             " "
-             (shell-quote-argument remote-file)
-             )
-     )
-
-    )
-  )
-
-(defun sync-tantan-file ()
-  "Sync domob file auto."
-  (when (string-match
-         "/Users/chengyuhang/work/.*"
-         buffer-file-name)
-    (rsync-file buffer-file-name)
-    (rsyncdev)
-    )
-  )
-
-(define-minor-mode auto-rsync-mode
-  :lighter "rsync"
-  :global t
-  (cond (auto-rsync-mode
-         (add-hook 'after-save-hook 'sync-tantan-file))
-        (t
-         (remove-hook 'after-save-hook 'sync-tantan-file))))
-
-
-(require 'ox-odt)
-
-(require 'sql-indent)
-
-
-
+;; (require 'ox-odt)
+(require-package 'sql-indent)
 (add-hook 'sqlind-minor-mode-hook
           (lambda ()
             (setq sqlind-basic-offset 4)
             ))
+(message "Init sql indent ok")
 
+(require-package 'rjsx-mode)
+(require-package 'eslintd-fix)
 (add-to-list 'auto-mode-alist '(".*\\.js" . rjsx-mode))
-
-
 (add-hook 'rjsx-mode-hook
           (lambda ()
             (setq emmet-expand-jsx-className? t)
             (emmet-mode t)
             (eslinted-fix-mode t)
             ))
+
 (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+(message "Init js ok")
+
+(require-package 'wanderlust)
+(autoload 'wl-user-agent-compose "wl-draft" nil t)
+(define-mail-user-agent
+  'wl-user-agent
+  'wl-user-agent-compose
+  'wl-draft-send
+  'wl-draft-kill
+  'mail-send-hook
+  )
+(setq mail-user-agent 'wl-user-agent)
+(setq message-mail-user-agent 'wl-user-agent)
+(setq org-mime-library 'semi)
 
 
-
+(require 'markdown-email)
+(require 'remote-copy-paste)
 (setq debug-on-error nil)
 (message "init local success")
 (provide 'init-local)
