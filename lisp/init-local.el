@@ -26,16 +26,19 @@
 (message "Init sql indent ok")
 
 (require-package 'rjsx-mode)
-(require-package 'eslintd-fix)
 (add-to-list 'auto-mode-alist '(".*\\.js" . rjsx-mode))
 (add-hook 'rjsx-mode-hook
           (lambda ()
             (setq emmet-expand-jsx-className? t)
             (emmet-mode t)
-            (eslinted-fix-mode t)
+            (add-hook 'after-save-hook 'eslint-fix nil t)
             ))
+(add-to-list 'auto-mode-alist '(".*\\.json" . json-mode))
+(add-hook 'json-mode-hook
+          (lambda ()
+            (setq-local js-indent-level 4))
+          )
 
-(add-hook 'js2-mode-hook 'eslintd-fix-mode)
 (message "Init js ok")
 
 (require-package 'wanderlust)
