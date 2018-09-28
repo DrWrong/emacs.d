@@ -8,11 +8,15 @@
   (setq deactivate-mark t)
   )
 
+(global-set-key (kbd "C-c C-c") 'remotecopy)
+
 (defun remotepaste ()
   "Paste to remote clipboard."
   (interactive)
   (call-process-region (point) (if mark-active (mark) (point)) "pbpaste-remote" t t)
   )
+(global-set-key (kbd "C-c C-v") 'remotecopy)
+
 
 (defun blogpngpaste ()
   "Paste image when writting blog"

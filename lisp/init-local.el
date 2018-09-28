@@ -4,6 +4,9 @@
 ;; Set load path
 (push "~/.emacs.d/site-lisp" load-path)
 
+;; custom path
+(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
+                         ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 ;; go mode config
 (require-package 'go-mode)
 (require-package 'company-go)
@@ -31,7 +34,7 @@
           (lambda ()
             (setq emmet-expand-jsx-className? t)
             (emmet-mode t)
-            (add-hook 'after-save-hook 'eslint-fix nil t)
+            (prettier-js-mode)
             ))
 (add-to-list 'auto-mode-alist '(".*\\.json" . json-mode))
 (add-hook 'json-mode-hook
