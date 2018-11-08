@@ -6,7 +6,7 @@
 
 ;; custom path
 (setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
-                         ("melpa" . "https://mirrors.tu[<8;56;66mna.tsinghua.edu.cn/elpa/melpa/")))
+                         ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;;; Customize theme
 (require-package 'moe-theme)
