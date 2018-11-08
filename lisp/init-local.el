@@ -5,8 +5,8 @@
 (push "~/.emacs.d/site-lisp" load-path)
 
 ;; custom path
-(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
-                         ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+;; (setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
+;;                          ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;;; Customize theme
 (require-package 'moe-theme)
@@ -48,7 +48,7 @@
 
 (message "Init js ok")
 
-(require 'yafolding)
+(require-package 'yafolding)
 (define-key yafolding-mode-map (kbd "C-c h") 'yafolding-hide-parent-element)
 (add-hook 'yaml-mode-hook 'yafolding-mode)
 (require 'remote-copy-paste)
