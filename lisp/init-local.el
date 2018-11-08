@@ -6,7 +6,11 @@
 
 ;; custom path
 (setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
-                         ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+                         ("melpa" . "https://mirrors.tu[<8;56;66mna.tsinghua.edu.cn/elpa/melpa/")))
+
+;;; Customize theme
+(require-package 'moe-theme)
+(load-theme 'moe-dark t)
 ;; go mode config
 (require-package 'go-mode)
 (require-package 'company-go)
