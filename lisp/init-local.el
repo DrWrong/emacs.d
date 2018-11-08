@@ -44,22 +44,11 @@
 
 (message "Init js ok")
 
-(require-package 'wanderlust)
-(autoload 'wl-user-agent-compose "wl-draft" nil t)
-(define-mail-user-agent
-  'wl-user-agent
-  'wl-user-agent-compose
-  'wl-draft-send
-  'wl-draft-kill
-  'mail-send-hook
-  )
-(setq mail-user-agent 'wl-user-agent)
-(setq message-mail-user-agent 'wl-user-agent)
-(setq org-mime-library 'semi)
-
-
-(require 'markdown-email)
+(require 'yafolding)
+(define-key yafolding-mode-map (kbd "C-c h") 'yafolding-hide-parent-element)
+(add-hook 'yaml-mode-hook 'yafolding-mode)
 (require 'remote-copy-paste)
+(require 'init-org-agenda)
 (setq debug-on-error nil)
 (message "init local success")
 (provide 'init-local)
