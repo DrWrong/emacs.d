@@ -5,24 +5,13 @@
 (push "~/.emacs.d/site-lisp" load-path)
 
 ;; custom path
-(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu")
+(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;;; Customize theme
 (require-package 'moe-theme)
 (load-theme 'moe-dark t)
 ;; go mode config
-(require-package 'go-mode)
-(require-package 'company-go)
-(require-package 'golint)
-(require-package 'go-playground)
-(setq gofmt-command "goimports")
-(add-hook 'go-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'gofmt-before-save)
-            )
-          )
-(message "Init go mode ok")
 
 ;; (require 'ox-odt)
 (require-package 'sql-indent)
@@ -48,11 +37,14 @@
 
 (message "Init js ok")
 
-(require 'yafolding)
+(require-package 'yafolding)
 (define-key yafolding-mode-map (kbd "C-c h") 'yafolding-hide-parent-element)
+(define-key yafolding-mode-map (kbd "C-c t") 'yafolding-toggle-element)
 (add-hook 'yaml-mode-hook 'yafolding-mode)
 (require 'remote-copy-paste)
-(require 'init-org-agenda)
+;; (require 'init-org-agenda)
+(require 'init-go)
+(require 'init-flyspell)
 (setq debug-on-error nil)
 (message "init local success")
 (provide 'init-local)
