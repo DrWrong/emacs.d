@@ -46,6 +46,7 @@
 (require 'init-go)
 (require 'init-flyspell)
 (setq debug-on-error nil)
+;;; (setq display-line-numbers-mode nil)
 (message "init local success")
 (provide 'init-local)
 ;;; init-local.el ends here
